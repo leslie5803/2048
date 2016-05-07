@@ -1,6 +1,5 @@
 ;(function () {
 	 function game () {
-		 this.score = 0;
 		 this.map = [
 		 		[
 		 			[],[],[],[]
@@ -37,7 +36,6 @@
 
 			  return tbody.children;
 		}());
-		this.history = [];
 	 }
 
 	 game.prototype = {
@@ -54,7 +52,6 @@
 			 var value = elem.children[0].innerHTML;
 
 			 this.map[pos.x][pos.y][0] = value;
-			 console.log(this.map);
 		},
 
 	 	createBlock: function (undefined) {
@@ -72,21 +69,10 @@
 	 	},
 
 	 	colorFactory: function (num) {
-	 		 var index = Math.log(num)/Math.log(2);
-
-	 		 return this.color[index];
-	 	},
-
-	 	getPosition: function () {
-	 		 var len = this.child.length,
-	 		 	 i = 0;
-	 		 if(!len){
-	 		 	return this.selectPosition();
-	 		 }
-
-	 		 for (; i < len; i = i+1) {
-	 		 	
-	 		 }
+	 		 var index = Math.log(num)/Math.log(2),
+				 color = this.color[index] ? this.color[index] : this.color[0];
+				 
+	 		 return color;
 	 	},
 
 		getLine: function(){
@@ -158,10 +144,6 @@
 
 	 		  	 code in direction ? self[direction[code]]() : '';
 	 		  }); 
-	 	},
-
-	 	remove: function (row,col) {
-	 		 //this.tr.children[row].children[col].innerHTML = '';
 	 	},
 
 		sortLeft: function(){
@@ -380,12 +362,28 @@
 		},
 
 		changeTable: function(pos,val){
-			console.dir(this.tr[pos.x].children[pos.y]);
 			this.tr[pos.x].children[pos.y].innerHTML = this.getElemHtml(val);
 		},
 
 		getElemHtml: function(val){
-			return '<p class="block" style="background-color: rgb(255, 204, 153);"><span class="text">'+ val +'</span></p>';
+			var style = this.colorFactory(val),
+				style2 = '';
+
+			if(val>100 && val<1000){
+				style2 = 'font-size:35px;top:15px;right:10px;';
+			}else if(val>1000 && val<10000){
+				style2 = 'font-size:30px;top:18px;right:5px;';
+			}else if(val>10000){
+				style2 = 'font-size:25px;top:21px;right:5px;';
+			}
+			return '<p class="block" style="background-color:'+ style +';"><span class="text" style="'+ style2 +'">'+ val +'</span></p>';
+		},
+
+		getStyle: function(val){
+			var color = this.color[Math.log(val)/Math.log(2)] ? this.color[Math.log(val)/Math.log(2)] : this.color[0];
+				style = 'background-color:'+ color + ';';
+			
+			return style;
 		}
 	 }
 
@@ -398,6 +396,6 @@
 						 }
 						 return false;
 					 }
-	 var test = new game();
-	 test.start().move();
+	 var init = new game();
+	 init.start().move();
 })();
