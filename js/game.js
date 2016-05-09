@@ -36,6 +36,8 @@
 
 			  return tbody.children;
 		}());
+
+		this.score = 0;
 	 }
 
 	 game.prototype = {
@@ -129,6 +131,8 @@
 	 		  	 var code = event.keyCode || event.which;
 
 	 		  	 code in direction ? self[direction[code]]() : '';
+
+				 document.getElementById('score').innerHTML = self.score;
 	 		  }); 
 	 	},
 
@@ -171,6 +175,7 @@
 						continue;
 					}
 
+					this.score += ~~this.map[x][y][0];
 					this.map[x][y][0] *=2;
 					this.map[x][y+1].pop();
 					this.tr[x].children[y].innerHTML = this.getElemHtml(this.map[x][y][0]);
@@ -225,6 +230,7 @@
 						continue;
 					}
 
+					this.score += ~~this.map[y][x][0];
 					this.map[y][x][0] *=2;
 					this.map[y+1][x]=[];
 					this.tr[y].children[x].innerHTML = this.getElemHtml(this.map[y][x][0]);
@@ -278,6 +284,7 @@
 						continue;
 					}
 
+					this.score += ~~this.map[x][y][0];
 					this.map[x][y][0] *=2;
 					this.map[x][y-1]=[];
 					this.tr[x].children[y].innerHTML = this.getElemHtml(this.map[x][y][0]);
@@ -332,6 +339,7 @@
 						continue;
 					}
 
+					this.score += ~~this.map[y][x][0];
 					this.map[y][x][0] *=2;
 					this.map[y-1][x]=[];
 					this.tr[y].children[x].innerHTML = this.getElemHtml(this.map[y][x][0]);
