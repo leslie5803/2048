@@ -110,20 +110,6 @@
 	 		 return location;
 	 	},
 
-	 	hasSibs: function (row,col) {
-	 		  for(var i=0; i<col; ++i){
-					if(this.map[row][i].length){
-						 return i;	
-					}
-			  }
-
-			  return false;
-	 	},
-
-	 	equal: function (num1,num2) {
-	 		 return num1 == num2;
-	 	},
-
 	 	insert: function (elem,position) {
 	 		 var pos = position ? position : this.selectPosition(),
 				 tr = this.tr.item(pos.x),
@@ -361,10 +347,6 @@
 			 }		
 		},
 
-		changeTable: function(pos,val){
-			this.tr[pos.x].children[pos.y].innerHTML = this.getElemHtml(val);
-		},
-
 		getElemHtml: function(val){
 			var style = this.colorFactory(val),
 				style2 = '';
@@ -396,6 +378,7 @@
 						 }
 						 return false;
 					 }
+
 	 var init = new game();
 	 init.start().move();
 })();
