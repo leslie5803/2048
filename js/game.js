@@ -149,17 +149,13 @@
 	 		 addEvent('keyup', function (event) {
 	 		  	 var code = event.keyCode || event.which;
 
-				if(!self.gameOver){
 					 code in direction ? self[direction[code]]() : '';
 					 document.getElementById('score').innerHTML = self.score;
-				}else{
-					document.getElementById('over').innerHTML = '游戏结束!';
-				}
 	 		  }); 
 	 	},
 
 		sortLeft: function(){
-			var hasChange = false,isOver = true;
+			var hasChange = false;
 			for(var i=0; i<4; ++i){
 				for(var j=0; j<4; ++j){
 					if(this.map[i][j].length){
@@ -167,7 +163,6 @@
 					}
 					var k = j+1,
 						len = this.map[i].length;
-					isOver = false;
 					for(; k<len; ++k){
 						if(!this.map[i][k].length){
 							continue;
@@ -182,7 +177,6 @@
 					}
 				}
 			 }
-			 this.gameOver = isOver;
 			return hasChange;
 		},
 
