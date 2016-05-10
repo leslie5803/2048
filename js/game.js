@@ -38,7 +38,6 @@
 		}());
 
 		this.score = 0;
-		this.gameOver = false;
 	 }
 
 	 game.prototype = {
